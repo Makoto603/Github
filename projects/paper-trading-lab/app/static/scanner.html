@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Market Scanner - Paper Trading Lab v0.29.4.1</title>
+<style>
+:root{color-scheme:dark;--bg:#080b10;--panel:#11161f;--line:#252d3a;--text:#eef3f8;--muted:#8e9bad;--good:#6ee7a8;--bad:#ff7b8b;--warn:#f5c76b;--blue:#91b9ff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1500px;margin:auto;padding:24px}h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:12px;margin-top:5px}
+nav{display:flex;gap:14px;margin-top:10px;font-size:12px}a{color:var(--muted);text-decoration:none}a.active{color:var(--blue)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:16px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+button{background:#172033;color:var(--text);border:1px solid #303b50;padding:8px 12px;border-radius:8px;cursor:pointer}
+button.active{border-color:var(--blue);color:var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-weight:500;position:sticky;top:0;background:var(--panel)}
+.good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}.scroll{max-height:75vh;overflow:auto}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row input{background:#0b1018;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px}.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:4px 7px;margin:3px;font-size:11px}.muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>MARKET SCANNER <span style="font-size:12px;color:var(--muted)">v0.29.4.1</span></h1>
+<div class="sub">Cross-market crypto opportunity ranking</div>
+<nav><a href="/">Dashboard</a><a class="active" href="/scanner">Market Scanner</a></nav>
+
+<div class="controls">
+<button class="active" onclick="setFilter('ALL',this)">ALL</button>
+<button onclick="setFilter('BUY',this)">BUY</button>
+<button onclick="setFilter('WAIT',this)">WAIT</button>
+<button onclick="setFilter('HOLD',this)">HOLD</button>
+<button onclick="setFilter('SELL',this)">SELL</button>
+<button onclick="setFilter('POSITION',this)">POSITION</button>
+</div>
+
+<div class="card">
+<div><b>AUTO UNIVERSE / BLACKLIST</b></div>
+<div id="universeStatus" class="sub" style="margin-top:6px">Loading universe...</div>
+<div class="row" style="margin-top:10px">
+<input id="blSymbol" placeholder="BTC/USD" style="width:130px">
+<input id="blReason" placeholder="Blacklist reason" style="min-width:260px;flex:1">
+<button onclick="addBlacklist()">Add blacklist</button>
+</div>
+<div id="blacklistRows" style="margin-top:8px"></div>
+<div class="sub" style="margin-top:6px">AI may add up to 3 symbols during an approved AI conference, only after repeated symbol-specific evidence. AI cannot remove blacklist entries.</div>
+</div>
+
+<div class="card">
+<div class="scroll">
+<table>
+<thead><tr><th>Rank</th><th>Symbol</th><th>Score</th><th>Signal</th><th>Price</th><th>RSI</th><th>EMA Fast</th><th>EMA Slow</th><th>1m</th><th>5m</th><th>15m</th><th>30m</th><th>ATR</th><th>Position</th><th>Unrealized P/L</th><th>P/L %</th><th>State</th><th>Reason</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</div>
+</div>
+<script>
+let data=[],filter='ALL';
+const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const num=(x,n=2)=>x==null?'-':Number(x).toFixed(n);
+function setFilter(f,b){filter=f;document.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()}
+function render(){
+ const filtered=data.filter(x=>filter==='ALL'||(filter==='POSITION'?x.in_position:x.signal===filter));
+ document.getElementById('rows').innerHTML=filtered.map(x=>{
+   const rank=data.findIndex(y=>y.symbol===x.symbol)+1;
+   const cls=x.signal==='BUY'?'good':x.signal==='SELL'?'bad':'warn';
+   return `<tr><td>${rank}</td><td>${esc(x.symbol)}</td><td>${num(x.score,1)}</td><td class="${cls}">${esc(x.signal)}</td><td>${num(x.price,4)}</td><td>${num(x.rsi,1)}</td><td>${num(x.ema_fast,4)}</td><td>${num(x.ema_slow,4)}</td><td>${esc(x.trend)}</td><td>${esc(x.mtf_5m||'-')}</td><td>${esc(x.mtf_15m||'-')}</td><td>${esc(x.mtf_30m||'-')}</td><td>${num(x.atr,4)}</td><td>${x.in_position?'YES':'-'}</td><td>${x.in_position?num(x.unrealized_pl,2):'-'}</td><td>${x.in_position?num(Number(x.unrealized_plpc||0)*100,2)+'%':'-'}</td><td>${x.blacklisted?'BLACKLIST':'ACTIVE'}</td><td>${esc(x.blacklisted?(x.blacklist_reason||'Blacklisted'):x.reason)}</td></tr>`;
+ }).join('');
+}
+async function loadBlacklist(){
+ const [u,b]=await Promise.all([fetch('/api/universe').then(r=>r.json()),fetch('/api/blacklist').then(r=>r.json())]);
+ if(u.ok){document.getElementById('universeStatus').dataset.universeRefresh=u.last_refresh_utc||'';}
+ const rows=(b.items||[]).map(x=>`<span class="pill"><b>${esc(x.symbol)}</b> · ${esc(x.source)} · ${esc(x.reason||'')}${x.removable?` <button onclick="removeBlacklist('${encodeURIComponent(x.symbol)}')" style="padding:2px 5px">×</button>`:' · ENV LOCKED'}</span>`).join('');
+ document.getElementById('blacklistRows').innerHTML=rows||'<span class="muted">No blacklist entries</span>';
+}
+async function addBlacklist(){
+ const symbol=document.getElementById('blSymbol').value.trim();
+ const reason=document.getElementById('blReason').value.trim();
+ if(!symbol)return;
+ const r=await fetch('/api/blacklist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({symbol,reason})}).then(x=>x.json());
+ if(!r.ok){alert(r.error||'Blacklist add failed');return;}
+ document.getElementById('blSymbol').value='';document.getElementById('blReason').value='';
+ await loadBlacklist();await load();
+}
+async function removeBlacklist(symbol){
+ const r=await fetch('/api/blacklist/'+symbol,{method:'DELETE'}).then(x=>x.json());
+ if(!r.ok){alert(r.error||'Blacklist remove failed');return;}
+ await loadBlacklist();await load();
+}
+async function load(){const r=await fetch('/api/scanner');const j=await r.json();data=j.items||[];const p=j.prescan||{};const u=j.universe||{};document.getElementById('universeStatus').textContent=`Alpaca tradable ${u.all_tradable_count??'-'} / active ${u.active_count??'-'} / blacklisted ${u.blacklist_count??0} · pre-scan ${p.candidate_count??0}/${p.limit??50} every ${p.refresh_minutes??5}m · universe refresh 15m`;render()}
+load();loadBlacklist();setInterval(load,20000);setInterval(loadBlacklist,60000);
+</script>
+</body>
+</html>

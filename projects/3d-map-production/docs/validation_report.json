@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "nodes": 55,
+  "edges": 81,
+  "original_nodes_retained": "30/30",
+  "unreachable_nodes": [],
+  "valid_terminals": [
+    "N_end",
+    "N_human_decision"
+  ],
+  "cycles": [
+    {
+      "nodes": [
+        "N_unity",
+        "N_unity_retry_guard",
+        "N_unity_transform",
+        "N_unitycheck",
+        "N_unityfix"
+      ],
+      "bounded_by_retry": true,
+      "user_driven": false
+    },
+    {
+      "nodes": [
+        "N_3d",
+        "N_ai_validator_ready",
+        "N_asset_provider",
+        "N_asset_retry_guard",
+        "N_assetcheck",
+        "N_assetfix",
+        "N_assets",
+        "N_autofix",
+        "N_blender",
+        "N_blender_ready",
+        "N_final",
+        "N_final_retry_guard",
+        "N_found",
+        "N_imgfit",
+        "N_imggen",
+        "N_imggen_available",
+        "N_integrity",
+        "N_localfix",
+        "N_need_ai_validate",
+        "N_numeric_validate",
+        "N_phase2_enabled",
+        "N_place",
+        "N_placeholder",
+        "N_preprocess",
+        "N_reason",
+        "N_structure",
+        "N_upper_available",
+        "N_upperfix",
+        "N_web",
+        "N_web_option"
+      ],
+      "bounded_by_retry": true,
+      "user_driven": false
+    },
+    {
+      "nodes": [
+        "N_human_review",
+        "N_review_required",
+        "N_supplement"
+      ],
+      "bounded_by_retry": false,
+      "user_driven": true
+    },
+    {
+      "nodes": [
+        "N_drawing",
+        "N_error",
+        "N_input",
+        "N_source_extract"
+      ],
+      "bounded_by_retry": false,
+      "user_driven": true
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "schema": "Draft 2020-12 valid"
+}

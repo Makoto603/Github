@@ -1,0 +1,2 @@
+import { contextBridge, ipcRenderer } from 'electron';
+contextBridge.exposeInMainWorld('mapStudio',{createProject:data=>ipcRenderer.invoke('project:create',data),openProject:()=>ipcRenderer.invoke('project:open'),getProject:path=>ipcRenderer.invoke('project:state',path),getInputs:path=>ipcRenderer.invoke('project:inputs',path),resume:path=>ipcRenderer.invoke('project:resume',path),selectInputs:()=>ipcRenderer.invoke('dialog:inputs'),openArtifact:path=>ipcRenderer.invoke('artifact:open',path),onEvent:listener=>ipcRenderer.on('map-studio:event',(_,event)=>listener(event))});

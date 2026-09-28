@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, writeFile, mkdir } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { MapProductionApplicationService } from '../assets/map-production-application-service.js';
+const map={objects:[{id:'ground',type:'ground',scale:[1,1,1]}],roads:[{id:'road',points:[[0,0,0],[1,0,0]],width:1}],buildings:[{id:'building',footprint:[[0,0,0],[1,0,0],[1,1,0]],height:2}],zones:[]};
+const decisions={decisions:[{object_id:'ground',production_mode:'PROCEDURAL'},{object_id:'road',production_mode:'PROCEDURAL'},{object_id:'building',production_mode:'GENERATED_ASSET'}]};
+const assets={asset_requirements:[{asset_id:'a',object_ids:['building'],generation_mode:'generated_asset',target_dimensions:[1,1,2],generation_profile:'Prototype',provider_preferences:['fake'],reference_requirement_id:'r',status:'APPROVED'}]},refs={reference_requirements:[{reference_requirement_id:'r',mode:'AUTO_ACQUIRE',status:'PENDING'}]};
+async function fixture(state){const p=await mkdtemp(join(tmpdir(),'full-entry-')),b=join(p,'production_bridge');await mkdir(join(p,'structure'),{recursive:true});await mkdir(b,{recursive:true});await writeFile(join(p,'project.json'),JSON.stringify({provider_settings:{}}));await writeFile(join(p,'structure','map_structure.json'),JSON.stringify(map));for(const [f,x]of [['production_readiness.json',{state}],['binding_review.json',decisions],['asset_requirements.json',assets],['reference_requirements.json',refs]])await writeFile(join(b,f),JSON.stringify(x));return p}
+test('READY gate invokes injected service with adapter output',async()=>{let calls=0,received;const service=new MapProductionApplicationService({productionServiceFactory:()=>({run:async value=>{calls++;received=value;return{final_state:'READY'}}})});await service.startFullProduction(await fixture('READY'));assert.equal(calls,1);assert.equal(received.productionInput.generated_assets.length,1);assert.equal(received.productionInput.procedural_objects.length,2)});
+for(const state of ['WAITING_USER','FAILED'])test(`${state} gate rejects before invocation`,async()=>{let calls=0;const service=new MapProductionApplicationService({productionServiceFactory:()=>({run:async()=>{calls++}})});await assert.rejects(service.startFullProduction(await fixture(state)),/not READY/);assert.equal(calls,0)});

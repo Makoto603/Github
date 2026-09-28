@@ -1,0 +1,435 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": "DEV-001",
+      "name": "開発管理センター",
+      "summary": "ChatGPT Web、複数PCのCodex、Git Repository等で並行する開発案件を一元管理する司令塔。",
+      "currentPhase": "実装",
+      "status": "ACTIVE",
+      "priority": "HIGH",
+      "startDate": "2026-09-28",
+      "updatedAt": "2026-09-28T17:20:00+09:00",
+      "currentWork": "開発管理センター本体をGitへ正式移行済み。既存案件のGit移行とSite登録データ整備を進行中。",
+      "nextWork": "Git化済み案件をSite DBへ同期し、残案件を順次Git化する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "ChatGPT側からSite DBを直接更新する公開操作が現在利用できない。",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/development-control-center",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "IN_PROGRESS",
+        "単体テスト": "NOT_STARTED",
+        "結合テスト": "NOT_STARTED",
+        "受入テスト": "NOT_STARTED",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-002",
+      "name": "X Topic Editor / X BOT",
+      "summary": "Web上のニュース候補を収集・比較し、人間確認後にX投稿候補・予約投稿へつなぐ管理ツール。",
+      "currentPhase": "実装",
+      "status": "ACTIVE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-25",
+      "updatedAt": "2026-09-28T22:25:00+09:00",
+      "currentWork": "稼働中Siteの正式仕様・Site参照情報をGitへ移行。内部Siteソースは取得経路待ち。",
+      "nextWork": "RSS登録、重複排除、本文比較、予約投稿フローを仕上げる。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "一部ニュースサイトは取得制約あり。",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/x-topic-editor / Site sourceは未取得",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "IN_PROGRESS",
+        "単体テスト": "NOT_STARTED",
+        "結合テスト": "NOT_STARTED",
+        "受入テスト": "NOT_STARTED",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-003",
+      "name": "Neko Lab Editor",
+      "summary": "Neko Lab専属のWordPress編集Skill。記事整理、画像生成、Draft更新、SEO補助を行う。",
+      "currentPhase": "保守・改修",
+      "status": "ACTIVE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-24",
+      "updatedAt": "2026-09-28T17:25:00+09:00",
+      "currentWork": "Neko Lab Editor SkillをGitへ正式移行済み。画像生成・日本語表現・WordPress Draft運用を実記事で改善中。",
+      "nextWork": "実記事で運用しながら画像・本文ルールを継続調整する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "運用開始済み。 / 2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/neko-lab-editor",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "PASS",
+        "受入テスト": "PASS",
+        "リリース": "PASS",
+        "保守・改修": "IN_PROGRESS"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-004",
+      "name": "Neko Lab WordPress Bridge",
+      "summary": "Neko Lab EditorからWordPressのDraft作成・更新や画像アップロードを行うための橋渡し。",
+      "currentPhase": "保守・改修",
+      "status": "MAINTENANCE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-24",
+      "updatedAt": "2026-09-28T17:30:00+09:00",
+      "currentWork": "WordPress Bridge v0.2.0のサーバー/Windowsクライアント配布パッケージをGitへ正式移行済み。",
+      "nextWork": "Neko Lab Editorとの連携を実運用で継続改善する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "v0.2.0",
+      "owner": "Makoto",
+      "notes": "初期開発完了。 / 2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/neko-lab-wordpress-bridge",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "PASS",
+        "受入テスト": "PASS",
+        "リリース": "PASS",
+        "保守・改修": "IN_PROGRESS"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-005",
+      "name": "3D MAP生成アプリ",
+      "summary": "図面・参考画像から3D MAPを生成し、Blenderで整形・検証してUnityへ渡す制作パイプライン。",
+      "currentPhase": "結合テスト",
+      "status": "ACTIVE",
+      "priority": "HIGH",
+      "startDate": "2026-09-21",
+      "updatedAt": "2026-09-28T17:20:00+09:00",
+      "currentWork": "Full Production REAL E2EがREADYまで到達。Reference/Hunyuan/Blender/FBX/UnityのREAL PASSを確認済み。",
+      "nextWork": "残テストと正式ドキュメントを確認し、受入テスト移行可否を人間判断する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/3d-map-production",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "IN_PROGRESS",
+        "受入テスト": "NOT_STARTED",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-006",
+      "name": "FlowSpec GUI",
+      "summary": "初心者でも正しいフローチャートを作り、.flowspec.zipとしてCodex開発へ渡せるGUIアプリ。",
+      "currentPhase": "実装",
+      "status": "ACTIVE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-20",
+      "updatedAt": "2026-09-28T17:45:00+09:00",
+      "currentWork": "FlowSpec仕様、React/TypeScript/Viteスターター、JSON出力、ローカルvalidatorの一部をGitへ正式移行済み。",
+      "nextWork": "React Flowキャンバス、Node追加・接続・選択編集・削除・Undo/Redoを実装する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/flowspec-studio",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "IN_PROGRESS",
+        "単体テスト": "NOT_STARTED",
+        "結合テスト": "NOT_STARTED",
+        "受入テスト": "NOT_STARTED",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-007",
+      "name": "FlowSpec Refiner",
+      "summary": "FlowSpecを解析し、構造・分岐・曖昧仕様・実装リスクをレビューしてCodex初期プロンプトも生成するSkill。",
+      "currentPhase": "保守・改修",
+      "status": "MAINTENANCE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-20",
+      "updatedAt": "2026-09-28T17:35:00+09:00",
+      "currentWork": "FlowSpec Refiner v2パッケージをGitへ正式移行済み。レビューとCodex初期プロンプト生成を実運用中。",
+      "nextWork": "実案件でレビュー精度とHandoff品質を継続改善する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "初期機能完成・実運用中。 / 2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/flowspec-refiner",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "PASS",
+        "受入テスト": "PASS",
+        "リリース": "PASS",
+        "保守・改修": "IN_PROGRESS"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-008",
+      "name": "Markdown Vault Desktop",
+      "summary": "Dropbox APIを直接利用し、iPhone版と共通Vaultを編集するWindows向けMarkdownアプリ。",
+      "currentPhase": "基本設計",
+      "status": "ACTIVE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-21",
+      "updatedAt": "2026-09-28T22:25:00+09:00",
+      "currentWork": "Dropbox API、競合管理、Obsidian風UIの設計をGit正式文書化済み。",
+      "nextWork": "デスクトップ版の実装を開始する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "実装ソースはまだ確認できていない。",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/markdown-vault-desktop",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "IN_PROGRESS",
+        "詳細設計": "NOT_STARTED",
+        "実装": "NOT_STARTED",
+        "単体テスト": "NOT_STARTED",
+        "結合テスト": "NOT_STARTED",
+        "受入テスト": "NOT_STARTED",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-009",
+      "name": "Paper Trading Lab",
+      "summary": "Alpaca Paper Tradingを利用した米株自動売買BOT。Strategy RaceとChampion/Challenger管理を含む。",
+      "currentPhase": "受入テスト",
+      "status": "ACTIVE",
+      "priority": "HIGH",
+      "startDate": "",
+      "updatedAt": "2026-09-28T22:15:00+09:00",
+      "currentWork": "Paper Trading Lab v0.29.4.1の展開済みソース一式をGitへ正式移行済み。Strategy v3とISO-8601 timestamp parser修正を反映。",
+      "nextWork": "Paper Tradingを継続し、注文整合性・履歴反映・429発生状況・Strategy Race成績を評価する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "実運用評価中。",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "v0.29.4.1",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/paper-trading-lab",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "PASS",
+        "受入テスト": "IN_PROGRESS",
+        "リリース": "NOT_STARTED",
+        "保守・改修": "NOT_STARTED"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "DEV-011",
+      "name": "Context Handoff",
+      "summary": "長期Chat/Codex開発のコンテキストを圧縮し、別チャット・別PCへ安全に引き継ぐSkill。",
+      "currentPhase": "保守・改修",
+      "status": "MAINTENANCE",
+      "priority": "MEDIUM",
+      "startDate": "2026-09-19",
+      "updatedAt": "2026-09-28T17:50:00+09:00",
+      "currentWork": "Context Handoff v2のSkill、Codex連携資料、テンプレートをGitへ正式移行済み。",
+      "nextWork": "実案件で引継ぎ品質を検証し、必要に応じてテンプレートを改善する。",
+      "pendingReason": "",
+      "holdReason": "",
+      "blocker": "",
+      "gitRepository": "https://github.com/Makoto603/Github",
+      "nasPath": "",
+      "latestRelease": "v2",
+      "owner": "Makoto",
+      "notes": "2026-09-28 既存開発案件として開発管理センターへ移行。移行以前の詳細履歴はGit Repositoryおよび既存ドキュメントを正式記録として参照。Git/NAS未確認項目は空欄。 Repository path: projects/context-handoff",
+      "phases": {
+        "企画": "PASS",
+        "要件定義": "PASS",
+        "基本設計": "PASS",
+        "詳細設計": "PASS",
+        "実装": "PASS",
+        "単体テスト": "PASS",
+        "結合テスト": "PASS",
+        "受入テスト": "PASS",
+        "リリース": "PASS",
+        "保守・改修": "IN_PROGRESS"
+      },
+      "changeRequests": [],
+      "decisions": [],
+      "activity": [
+        {
+          "type": "MIGRATION",
+          "message": "既存開発案件として開発管理センターへ移行",
+          "at": "2026-09-28T15:24:00+09:00"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "sourceOfTruth": "GIT",
+    "migrationDate": "2026-09-28",
+    "gitRepository": "https://github.com/Makoto603/Github",
+    "gitMigrationUpdatedAt": "2026-09-28T22:25:00+09:00",
+    "migratedProjectIds": [
+      "DEV-001",
+      "DEV-003",
+      "DEV-004",
+      "DEV-005",
+      "DEV-006",
+      "DEV-007",
+      "DEV-011",
+      "DEV-009",
+      "DEV-002",
+      "DEV-008"
+    ],
+    "scope": "personal-development-only",
+    "businessProjects": "EXCLUDED_FROM_PUBLIC_REPOSITORY"
+  }
+}

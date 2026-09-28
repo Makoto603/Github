@@ -1,0 +1,35 @@
+{
+  "flowspec_version": "1.0",
+  "project": {
+    "title": null,
+    "title_mode": "ai_generate",
+    "description": "CSVファイルを選択して読み込み、一覧表示するWindows向けアプリ。読み込み失敗時はエラーを表示する。",
+    "target": "Windows Desktop",
+    "notes": null
+  },
+  "flows": [
+    {
+      "id": "main",
+      "name": "メインフロー",
+      "start_node": "N001",
+      "nodes": [
+        {"id":"N001","type":"start","label":"開始","position":{"x":120,"y":40}},
+        {"id":"N002","type":"user_action","label":"CSVを選択","outputs":["selected_file"],"position":{"x":120,"y":140}},
+        {"id":"N003","type":"process","label":"CSVを読み込む","inputs":["selected_file"],"outputs":["csv_data","read_success"],"position":{"x":120,"y":240}},
+        {"id":"N004","type":"decision","label":"読み込み成功？","inputs":["read_success"],"position":{"x":120,"y":340}},
+        {"id":"N005","type":"output","label":"データを一覧表示","inputs":["csv_data"],"position":{"x":20,"y":460}},
+        {"id":"N006","type":"error","label":"読み込みエラーを表示","position":{"x":250,"y":460}},
+        {"id":"N007","type":"end","label":"終了","position":{"x":120,"y":580}}
+      ],
+      "edges": [
+        {"id":"E001","from":"N001","to":"N002","label":null,"condition":null},
+        {"id":"E002","from":"N002","to":"N003","label":null,"condition":null},
+        {"id":"E003","from":"N003","to":"N004","label":null,"condition":null},
+        {"id":"E004","from":"N004","to":"N005","label":"はい","condition":"yes"},
+        {"id":"E005","from":"N004","to":"N006","label":"いいえ","condition":"no"},
+        {"id":"E006","from":"N005","to":"N007","label":null,"condition":null},
+        {"id":"E007","from":"N006","to":"N007","label":null,"condition":null}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+project_id: DEV-005
+project_name: 3D MAP生成アプリ
+current_phase: 結合テスト
+project_status: ACTIVE
+priority: HIGH
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/3d-map-production
+updated_at: 2026-09-28T17:10:00+09:00
+current_work: Full Production REAL E2EがREADYまで到達。回帰結果と正式記録を整理中。
+next_action: 残テストと正式ドキュメントを確認し、受入テスト移行可否を人間判断する。
+blocker: ""
+requires_human_decision: true

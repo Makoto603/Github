@@ -1,0 +1,13 @@
+project_id: DEV-006
+project_name: FlowSpec GUI
+current_phase: 実装
+project_status: ACTIVE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/flowspec-studio
+updated_at: 2026-09-28T17:45:00+09:00
+current_work: FlowSpec仕様、schema、validator、React/Viteスターター骨格まで実装済み
+next_action: React Flowキャンバス、Node追加・接続・選択編集・削除・Undo/Redoを実装する
+blocker: ""
+requires_human_decision: false

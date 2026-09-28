@@ -1,0 +1,12 @@
+project_id: DEV-008
+project_name: Markdown Vault Desktop
+current_phase: 基本設計
+project_status: ACTIVE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/markdown-vault-desktop
+updated_at: 2026-09-28T22:25:00+09:00
+current_work: Dropbox API前提のVault同期、競合管理、Obsidian風UIを設計済み。
+next_action: デスクトップ版実装を開始する。
+blocker: 実装ソースはまだ確認できていない。

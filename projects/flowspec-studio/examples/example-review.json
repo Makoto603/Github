@@ -1,0 +1,7 @@
+{
+  "review_version":"1.0",
+  "flowspec_version":"1.0",
+  "summary":{"status":"pass_with_warnings","message":"主要フローは成立しています。CSV形式不正時の詳細挙動を決めると実装時の判断が減ります。","suggested_title":"CSV Flow Viewer"},
+  "issues":[{"id":"ISSUE-001","severity":"warning","node_id":"N003","edge_id":null,"title":"CSV形式不正時の扱いが曖昧","description":"ファイル自体は開けるがCSVとして解析できない場合の扱いが明示されていません。","suggestion":"読み込み失敗に含めるか、専用エラーを分けて定義してください。"}],
+  "suggested_changes":[]
+}

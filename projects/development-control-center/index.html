@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>開発管理センター</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DEV</div>
+        <div>
+          <h1>開発管理センター</h1>
+          <p>Development Control Center</p>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="dashboard">▦ ダッシュボード</button>
+        <button class="nav-item" data-view="projects">⌘ 案件一覧</button>
+        <button class="nav-item" data-view="changes">↻ 変更要求</button>
+        <button class="nav-item" data-view="handoff">⇄ Handoff</button>
+      </nav>
+
+      <div class="source-policy">
+        <div class="source-policy-title">正式情報源</div>
+        <strong>Git Repository</strong>
+        <span>Siteは進捗・履歴・Handoffの管理に限定</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <button id="exportBtn" class="ghost full">JSONエクスポート</button>
+        <label class="ghost full file-label">JSONインポート<input id="importInput" type="file" accept="application/json" hidden /></label>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2>Development Control Center</h2>
+          <p id="subtitle">複数環境の開発状況を一画面で把握</p>
+        </div>
+        <div class="top-actions">
+          <span class="sync-pill">● Local Prototype / Site DB Ready</span>
+          <button id="newProjectBtn" class="primary">＋ 新規案件</button>
+        </div>
+      </header>
+
+      <section id="dashboardView" class="view active-view">
+        <div id="kpiGrid" class="kpi-grid"></div>
+
+        <div class="panel toolbar-panel">
+          <div class="filter-row">
+            <input id="searchInput" class="control search" placeholder="案件名 / ID / 概要を検索" />
+            <select id="statusFilter" class="control">
+              <option value="">状態: すべて</option>
+            </select>
+            <select id="phaseFilter" class="control">
+              <option value="">工程: すべて</option>
+            </select>
+            <select id="priorityFilter" class="control">
+              <option value="">優先度: すべて</option>
+              <option value="HIGH">HIGH</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="LOW">LOW</option>
+            </select>
+            <button id="clearFiltersBtn" class="ghost">クリア</button>
+          </div>
+        </div>
+
+        <div class="panel table-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>案件一覧</h3>
+              <p>現在工程・状態・進捗・次アクションを横断確認</p>
+            </div>
+            <div id="resultCount" class="muted"></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>案件</th>
+                  <th>現在工程</th>
+                  <th>状態</th>
+                  <th>進捗</th>
+                  <th>優先度</th>
+                  <th>最終更新</th>
+                  <th>次アクション</th>
+                </tr>
+              </thead>
+              <tbody id="projectTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dashboard-bottom-grid">
+          <div class="panel">
+            <div class="panel-heading"><div><h3>要対応キュー</h3><p>Pending / Hold / Blockerを優先表示</p></div></div>
+            <div id="attentionQueue" class="queue-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading"><div><h3>最近の変更</h3><p>案件更新・変更要求・設計判断</p></div></div>
+            <div id="recentActivity" class="activity-list compact"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projectsView" class="view">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>全案件</h3><p>工程マトリクス</p></div></div>
+          <div id="matrix" class="matrix"></div>
+        </div>
+      </section>
+
+      <section id="changesView" class="view">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>変更要求一覧</h3><p>PASS済み工程を巻き戻さず、修正をCRとして追跡</p></div></div>
+          <div id="allChanges" class="cards-list"></div>
+        </div>
+      </section>
+
+      <section id="handoffView" class="view">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Codex Handoff</h3><p>別PC・別Codexで開発を再開するためのプロンプトを生成</p></div></div>
+          <div id="handoffCards" class="cards-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="drawerBackdrop" class="backdrop hidden"></div>
+  <aside id="projectDrawer" class="drawer hidden" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <div id="drawerProjectId" class="eyebrow"></div>
+        <h2 id="drawerTitle"></h2>
+      </div>
+      <button id="closeDrawerBtn" class="icon-btn">×</button>
+    </div>
+    <div id="drawerBody" class="drawer-body"></div>
+  </aside>
+
+  <div id="modalBackdrop" class="backdrop hidden"></div>
+  <div id="projectModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-header"><h3 id="projectModalTitle">新規案件</h3><button class="icon-btn" data-close-modal>×</button></div>
+    <form id="projectForm" class="modal-body form-grid"></form>
+  </div>
+
+  <div id="handoffModal" class="modal modal-wide hidden" role="dialog" aria-modal="true">
+    <div class="modal-header"><h3>Codex Development Handoff</h3><button class="icon-btn" data-close-handoff>×</button></div>
+    <div class="modal-body">
+      <textarea id="handoffText" class="handoff-text" readonly></textarea>
+      <div class="modal-actions"><button id="copyHandoffBtn" class="primary">コピー</button><button id="downloadHandoffBtn" class="ghost">Markdown保存</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>

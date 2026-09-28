@@ -1,0 +1,7 @@
+interface:
+  display_name: "Context Handoff"
+  short_description: "長期プロジェクトを新しいChat/Codexへ安全に引き継ぐ"
+  default_prompt: "この長期プロジェクトの現在状態を整理し、必要ならWEB/Codex向けhandoffを更新してください。"
+
+policy:
+  allow_implicit_invocation: true

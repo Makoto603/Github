@@ -1,0 +1,12 @@
+project_id: DEV-007
+project_name: FlowSpec Refiner
+current_phase: 保守・改修
+project_status: MAINTENANCE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/flowspec-refiner
+updated_at: 2026-09-28T17:35:00+09:00
+current_work: FlowSpecレビューとCodex初期プロンプト生成を実運用中
+next_action: 実案件でレビュー精度とHandoff品質を継続改善する
+blocker: ""

@@ -1,0 +1,12 @@
+project_id: DEV-003
+project_name: Neko Lab Editor
+current_phase: 保守・改修
+project_status: ACTIVE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/neko-lab-editor
+updated_at: 2026-09-28T17:25:00+09:00
+current_work: 画像生成・日本語表現・アイキャッチ/差し込み画像ルールを実運用で改善中
+next_action: 実記事で運用しながら画像・本文ルールを継続調整する
+blocker: ""

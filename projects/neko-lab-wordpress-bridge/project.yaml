@@ -1,0 +1,17 @@
+project_id: DEV-004
+project_name: Neko Lab WordPress Bridge
+current_phase: 保守・改修
+project_status: MAINTENANCE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/neko-lab-wordpress-bridge
+version: 0.2.0
+updated_at: 2026-09-28T17:30:00+09:00
+current_work: WordPress Draft操作とWindowsクライアントのv0.2.0を運用中
+next_action: Neko Lab Editorとの連携を実運用で継続改善する
+blocker: ""
+security:
+  secrets_committed: false
+  client_key_storage: DPAPI
+  server_key_storage: SHA-256 hash

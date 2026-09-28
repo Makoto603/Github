@@ -1,0 +1,15 @@
+project_id: DEV-002
+project_name: X Topic Editor / X BOT
+current_phase: 実装
+project_status: ACTIVE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/x-topic-editor
+site_url: https://x-topic-editor.neconini.chatgpt.site
+site_project_id: appgprj_6ab5cfc1112881919cf0543a8711759d
+site_source_version: 15
+updated_at: 2026-09-28T22:25:00+09:00
+current_work: Site実体は稼働中。記事本文比較・AI評価・RSS登録・候補管理を改善中。
+next_action: RSS登録、重複排除、本文比較、予約投稿フローを仕上げる。
+blocker: ChatGPT Sitesの内部ソースをLibraryから直接取得できない。

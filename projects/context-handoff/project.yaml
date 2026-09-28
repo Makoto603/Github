@@ -1,0 +1,13 @@
+project_id: DEV-011
+project_name: Context Handoff
+current_phase: 保守・改修
+project_status: MAINTENANCE
+priority: MEDIUM
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/context-handoff
+version: 2
+updated_at: 2026-09-28T17:50:00+09:00
+current_work: Web/Codex両対応の引継ぎSkillとAGENTS連携テンプレートを運用中
+next_action: 実案件で引継ぎ品質を検証し、必要に応じてテンプレートを改善する
+blocker: ""

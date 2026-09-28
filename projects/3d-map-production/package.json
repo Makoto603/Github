@@ -1,0 +1,9 @@
+{
+  "name": "map-flow-phase1-mvp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  }
+}

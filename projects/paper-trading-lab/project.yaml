@@ -1,0 +1,13 @@
+project_id: DEV-009
+project_name: Paper Trading Lab
+current_phase: 受入テスト
+project_status: ACTIVE
+priority: HIGH
+source_of_truth: git
+repository: https://github.com/Makoto603/Github
+repository_path: projects/paper-trading-lab
+version: 0.29.4.1
+updated_at: 2026-09-28T22:10:00+09:00
+current_work: Alpaca Paper Trading環境でStrategy Architecture v3を継続検証。v0.29.4.1でISO-8601 timestamp parserを修正。
+next_action: Paper運用を継続し、注文整合性・履歴・429・Strategy Raceの実績を評価する。
+blocker: 実運用評価中
