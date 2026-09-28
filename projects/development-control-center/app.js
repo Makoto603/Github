@@ -117,10 +117,11 @@
         <td>${statusBadge(p.status)}</td>
         <td><div class="progress-wrap"><div class="progress-meta"><span>${prog}%</span><span>${PHASES.filter(x=>['PASS','SKIPPED'].includes(p.phases?.[x])).length}/${PHASES.length}</span></div><div class="progress"><span style="width:${prog}%"></span></div></div></td>
         <td>${priorityBadge(p.priority)}</td>
+        <td>${p.gitRepository?'<span class="badge badge-complete">LINK</span>':'<span class="muted">-</span>'}</td>
         <td>${dateOnly(p.updatedAt)}</td>
         <td class="next-action">${esc(p.nextWork || '-')}</td>
       </tr>`;
-    }).join('') || `<tr><td colspan="7" class="muted">該当案件はありません。</td></tr>`;
+    }).join('') || `<tr><td colspan="8" class="muted">該当案件はありません。</td></tr>`;
   }
 
   function renderAttentionQueue(){
@@ -377,12 +378,87 @@
 
   let toastTimer; function toast(msg){ clearTimeout(toastTimer); const el=document.getElementById('toast'); el.textContent=msg; el.classList.remove('hidden'); toastTimer=setTimeout(()=>el.classList.add('hidden'),2200); }
 
+  const GIT_SYNC_FIELDS = [
+    'name','summary','currentPhase','status','priority','startDate','updatedAt',
+    'currentWork','nextWork','pendingReason','holdReason','blocker',
+    'gitRepository','nasPath','latestRelease','owner','notes','phases'
+  ];
+
+  function setGitStatus(label, ok=null){
+    const el=document.getElementById('gitStatusPill'); if(!el) return;
+    el.textContent=`● ${label}`;
+    el.dataset.state = ok===true ? 'connected' : (ok===false ? 'error' : 'checking');
+  }
+
+  async function refreshGitStatus(){
+    if(!window.GitAdapter){ setGitStatus('Git Adapterなし', false); return null; }
+    setGitStatus('Git確認中', null);
+    try{
+      const info=await window.GitAdapter.status();
+      setGitStatus(`Git接続済み / ${info.registryProjects}件`, true);
+      state.settings = {...(state.settings||{}),
+        gitConnection:'CONNECTED',
+        gitRepository:`https://github.com/${info.repository}`,
+        gitBranch:info.branch,
+        gitLatestCommit:info.latestCommit,
+        gitLatestCommitAt:info.latestCommitAt,
+        lastGitCheckAt:now()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return info;
+    }catch(error){
+      setGitStatus('Git接続失敗', false);
+      state.settings = {...(state.settings||{}),gitConnection:'ERROR',gitSyncError:String(error?.message||error),lastGitCheckAt:now()};
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return null;
+    }
+  }
+
+  async function syncFromGit(){
+    const btn=document.getElementById('gitSyncBtn');
+    if(btn){ btn.disabled=true; btn.textContent='同期中…'; }
+    try{
+      const info=await refreshGitStatus();
+      if(!info) throw new Error('Gitへ接続できません');
+      const incoming=Array.isArray(info.registry?.projects) ? info.registry.projects : [];
+      const localMap=new Map(state.projects.map(p=>[p.id,p]));
+      for(const remote of incoming){
+        const local=localMap.get(remote.id);
+        if(local){
+          for(const field of GIT_SYNC_FIELDS){
+            if(Object.prototype.hasOwnProperty.call(remote,field)) local[field]=remote[field];
+          }
+          addActivity(local,'GIT_SYNC',`Git registryから同期: ${info.latestCommit.slice(0,7)}`);
+        }else{
+          const added=JSON.parse(JSON.stringify(remote));
+          added.changeRequests=added.changeRequests||[];
+          added.decisions=added.decisions||[];
+          added.activity=added.activity||[];
+          added.activity.unshift({type:'GIT_SYNC',message:`Git registryから新規登録: ${info.latestCommit.slice(0,7)}`,at:now()});
+          state.projects.push(added);
+        }
+      }
+      state.settings={...(state.settings||{}),lastGitSyncAt:now(),gitSyncStatus:'SYNCED',gitSyncError:''};
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+      renderAll();
+      toast(`Gitから${incoming.length}件を同期しました`);
+    }catch(error){
+      state.settings={...(state.settings||{}),gitSyncStatus:'ERROR',gitSyncError:String(error?.message||error)};
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+      toast(`Git同期失敗: ${error?.message||error}`);
+    }finally{
+      if(btn){ btn.disabled=false; btn.textContent='Gitから同期'; }
+    }
+  }
+
   document.addEventListener('DOMContentLoaded',()=>{
     renderAll();
     document.querySelectorAll('.nav-item').forEach(b=>b.onclick=()=>switchView(b.dataset.view));
     ['searchInput','statusFilter','phaseFilter','priorityFilter'].forEach(id=>document.getElementById(id).addEventListener(id==='searchInput'?'input':'change',()=>{renderProjectTable(); bindProjectLinks();}));
     document.getElementById('clearFiltersBtn').onclick=()=>{['searchInput','statusFilter','phaseFilter','priorityFilter'].forEach(id=>document.getElementById(id).value=''); renderProjectTable(); bindProjectLinks();};
     document.getElementById('newProjectBtn').onclick=()=>openProjectModal();
+    document.getElementById('gitSyncBtn').onclick=syncFromGit;
+    refreshGitStatus();
     document.getElementById('projectForm').addEventListener('submit',handleProjectSubmit);
     document.getElementById('closeDrawerBtn').onclick=closeProject; document.getElementById('drawerBackdrop').onclick=closeProject;
     document.getElementById('modalBackdrop').onclick=()=>{ closeProjectModal(); closeHandoff(); };
