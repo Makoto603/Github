@@ -34,3 +34,25 @@ Git側正式文書とSite DBの状態が違う場合、Gitを自動上書きせ�
 
 - Ver.2 NAS API
 - Ver.3 Codex自動同期
+
+## Ver.1.1 Git接続修正
+
+公開個人開発Repositoryについて、`git-adapter.js` を使ったread-only Git接続を追加する。
+
+必須UI:
+- Git確認中
+- Git接続済み / N件
+- Git接続失敗
+- 「Gitから同期」ボタン
+
+同期元:
+- https://github.com/Makoto603/Github
+- `projects/registry.json`
+
+同期時:
+- Gitの正式項目をSiteへupsertする。
+- 既存のChange Request / Decision Log / activityを消さない。
+- GitにないSite案件を削除しない。
+- private業務案件は公開Git同期対象にしない。
+
+Site DB版へ移植する際は、localStorage保存部分だけSite DB APIへ置換し、GitAdapterの読み取りロジックと同期ルールは維持する。
