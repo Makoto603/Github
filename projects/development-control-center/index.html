@@ -43,7 +43,9 @@
           <p id="subtitle">複数環境の開発状況を一画面で把握</p>
         </div>
         <div class="top-actions">
-          <span class="sync-pill">● Local Prototype / Site DB Ready</span>
+          <span class="sync-pill">● Site DB / Local fallback</span>
+          <span id="gitStatusPill" class="sync-pill">● Git確認中</span>
+          <button id="gitSyncBtn" class="ghost">Gitから同期</button>
           <button id="newProjectBtn" class="primary">＋ 新規案件</button>
         </div>
       </header>
@@ -87,6 +89,7 @@
                   <th>状態</th>
                   <th>進捗</th>
                   <th>優先度</th>
+                  <th>GIT</th>
                   <th>最終更新</th>
                   <th>次アクション</th>
                 </tr>
@@ -158,6 +161,7 @@
   </div>
 
   <div id="toast" class="toast hidden"></div>
+  <script src="git-adapter.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
