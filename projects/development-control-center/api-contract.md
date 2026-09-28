@@ -77,3 +77,33 @@ Ver.1で取得する候補:
 - `last_codex_sync_at`
 - `sync_status`
 - `sync_error`
+
+## Git Read-Only Public Adapter (Ver.1.1)
+
+個人開発用の公開Repository `Makoto603/Github` は、ブラウザへCredentialを置かずに読み取り可能とする。
+
+### GET equivalent / Repository status
+Frontend adapter:
+- `GET https://api.github.com/repos/Makoto603/Github`
+- `GET https://api.github.com/repos/Makoto603/Github/commits/master`
+
+### Registry
+- `GET https://raw.githubusercontent.com/Makoto603/Github/master/projects/registry.json`
+
+### Project documents
+`notes` 内の `Repository path: projects/<slug>` を参照し、以下を読み取る。
+- `project.yaml`
+- `CURRENT_STATE.md`
+- `docs/HANDOFF.md`
+- `docs/CHANGELOG.md`
+
+### Sync rule
+- Git同期は明示操作「Gitから同期」で行う。
+- Gitから同期する正式項目: name, summary, currentPhase, status, priority, startDate, updatedAt, currentWork, nextWork, pendingReason, holdReason, blocker, gitRepository, nasPath, latestRelease, owner, notes, phases。
+- Site側のChange Request / Decision / activityは既存案件では保持する。
+- Git registryに存在しないSite案件は削除しない。
+- private業務Repositoryはこの公開read-only adapterでは扱わない。
+
+### Security
+- PAT / GitHub tokenをブラウザに保存しない。
+- private Repository対応時はSite backend側の認証済みadapterを追加する。
