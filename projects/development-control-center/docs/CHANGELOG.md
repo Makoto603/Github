@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.3 — 2026-09-29
+
+- Renderへ `DCC_BACKEND_BASE_URL` を設定し、Site URLまでの到達経路を確立
+- MCP Bridgeをv0.1.1へ更新
+- `DCC_BACKEND_TOKEN` 未設定でも `backend.configured=true` になる誤判定を修正
+- `backend.configured` はBase URLとTokenの両方が設定済みの場合のみtrueへ変更
+- Siteアクセスレイヤーの401 HTMLをそのままMCPエラー本文へ出さない診断処理を追加
+- TypeScript build成功、Render上でv0.1.1起動を確認
+- 現在の `server_info`: configured=false / baseUrlConfigured=true / tokenConfigured=false
+- RenderからSite公開URLへの実アクセスでChatGPT Sitesアクセスレイヤーの401 HTMLを確認し、次のブロッカーとして確定
+
 ## 0.1.2 — 2026-09-29
 
 - 外部MCP Bridge用Repository `Makoto603/development-control-center-mcp` をRenderへデプロイ
