@@ -7,42 +7,47 @@
 ACTIVE
 
 ## Current Work
-通常チャットから対応可能なBridge側修正を実施済み。RenderへSite URLを設定し、MCP Bridge v0.1.1へ更新した。現在はToken未設定とChatGPT Sitesアクセスレイヤー401が残課題。
+Site非公開のままBridge経由で15案件を読み取る経路は完成済み。MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)とoffline_access refresh tokenを実装し、RenderでOAuth enabled/configured=trueまで確認した。現在はChatGPT側の既存no-auth接続をOAuthとして一度だけ再リンクする段階。
 
 ## Verified
-- GET /api/mcp/projects: Bearer Token認証付き。Site DB由来の15案件を返す
-- GET /api/mcp/projects/:projectId: Site DB由来の詳細、履歴、CR、Decision、Handoffを返す
-- Site Secret: DCC_MCP_READ_TOKEN（値は文書・ブラウザ・DBへ記録しない）
-- Site API単体では認証なし401、不正Token 401、正しいTokenで一覧200・15件、実在ID詳細200、存在しないID 404を確認済み
-- Bridge Repository: Makoto603/development-control-center-mcp
-- Render service: development-control-center-mcp
-- ChatGPT通常チャット → プラグイン → MCP Bridge の ping 成功
-- Renderの DCC_BACKEND_BASE_URL はSite URLへ設定済み
-- MCP Bridge v0.1.1 / commit 7cfcfb9113fe0fc7e1116bfda8b24ae87487f8cc
-- v0.1.1で backend.configured はURLとTokenの両方がある場合のみtrue
-- 401 HTMLをそのままMCPエラーへ流さない診断を追加
-- Render build成功、v0.1.1起動確認
-- server_info: configured=false / baseUrlConfigured=true / tokenConfigured=false / writesEnabled=false
-- URL設定後の実接続で、Site公開URLがRenderからのGETに対してChatGPT Sitesアクセスレイヤーの401 HTMLを返すことを確認
+- Site DB: 15案件維持
+- list_projects: 15件取得成功
+- get_project(DEV-001): 成功
+- DEV-001 syncVersion: 5
+- unknown project: 404 project_not_found
+- DEV-010およびBIZ案件を含むGit未接続案件を維持
+- MCP_ALLOW_WRITES=false / writesEnabled=false
+- Site DB初期化・案件再登録・自動Git同期・UI変更なし
+- Bridge v0.2.0 TypeScript build成功
+- OAuth 2.1 Authorization Code + PKCE(S256)
+- protected resource metadata / authorization server metadata
+- Dynamic Client Registration
+- scopes: dcc.read / offline_access
+- access token TTL: 1時間
+- refresh token TTL: 90日
+- Render起動ログ: MCP OAuth: enabled=true configured=true
+- OAuth有効化後、既存no-auth接続は認証なしでは利用できない
 
 ## Next Work
-1. DCC_BACKEND_TOKENをRenderのSecretへ設定する。
-2. Site側で外部サーバーから/api/mcp/*へ到達できるアクセス方式を設定する。通常チャットで操作できない場合はWork/Site編集へ回す。
-3. Bridgeからlist_projects/get_projectを再検証し、15件とsyncVersionを確認する。
-4. MCP本体の認証はBackend接続確認後に追加する。
-5. 残案件のGit移行を継続する。
+1. ChatGPTで https://development-control-center-mcp.onrender.com/mcp をOAuth認証として再接続する。
+2. 初回だけ所有者用ペアリング資格情報を入力する。
+3. ping / server_info / list_projects / get_project を確認する。
+4. server_infoで backend configured=true、OAuth enabled/configured=true、writesEnabled=falseを確認する。
+5. list_projects=15、DEV-001詳細、syncVersion、未知ID404を再確認する。
+6. 接続成功後、所有者用ペアリング資格情報をローテーションする。
+7. refresh tokenで通常利用時の再認証が不要なことを確認する。
 
 ## Blocker
-- DCC_BACKEND_TOKEN未設定
-- ChatGPT SitesのアクセスレイヤーがRenderからのサーバー間リクエストを401 HTMLで拒否
-- 現在の通常チャットにはSite DB更新用の書き込みツールがない
+サーバー側ブロッカーは解消。ChatGPT側の一度きりのOAuth再リンク待ち。
 
 ## Cautions
-- Site DBを取得元とし、Gitに存在しない案件を維持する。
+- Siteはcustom非公開のまま維持する。
+- Site DBを取得元とし、Gitに存在しない案件を削除しない。
 - 読み取りAPIからGit fetch/sync、DB更新、履歴追加を行わない。
-- Siteの既存UI、Git同期、履歴、CR、Decision Log、Handoff、/mcp、WebMCPを維持する。
-- TokenをGit、Site DB、ブラウザ、ログ、APIレスポンスへ記録しない。
+- Siteの既存UI、履歴、CR、Decision Log、Handoff、既存WebMCPを維持する。
+- SecretをGit、Site DB、ブラウザJS、ログ、APIレスポンスへ記録しない。
 - MCP_ALLOW_WRITES=falseを維持する。
+- OAuth signing secretは絶対にユーザー表示しない。
 
 ## Completion Criteria
-Bridgeのserver_infoでconfigured=true / baseUrlConfigured=true / tokenConfigured=trueとなり、ChatGPT通常チャットから15案件の一覧と詳細が取得でき、認証失敗が401、存在しないIDが404となること。
+ChatGPT側でOAuth接続が完了し、通常チャットから15案件の一覧と詳細を再取得できること。以後の接続はaccess token/refresh tokenで自動認証され、通常利用で所有者用ペアリング資格情報の再入力を要求しないこと。
