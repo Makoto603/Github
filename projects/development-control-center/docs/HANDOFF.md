@@ -7,7 +7,7 @@
 ACTIVE
 
 ## Current Work
-Site非公開のままBridge経由で15案件を読み取る経路は完成済み。MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)とoffline_access refresh tokenを実装し、RenderでOAuth enabled/configured=trueまで確認した。現在はChatGPT側の既存no-auth接続をOAuthとして一度だけ再リンクする段階。
+ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの読み取り経路は完成し、通常運用中。
 
 ## Verified
 - Site DB: 15案件維持
@@ -18,27 +18,24 @@ Site非公開のままBridge経由で15案件を読み取る経路は完成済�
 - DEV-010およびBIZ案件を含むGit未接続案件を維持
 - MCP_ALLOW_WRITES=false / writesEnabled=false
 - Site DB初期化・案件再登録・自動Git同期・UI変更なし
-- Bridge v0.2.0 TypeScript build成功
+- Bridge v0.2.1
 - OAuth 2.1 Authorization Code + PKCE(S256)
 - protected resource metadata / authorization server metadata
 - Dynamic Client Registration
 - scopes: dcc.read / offline_access
 - access token TTL: 1時間
 - refresh token TTL: 90日
-- Render起動ログ: MCP OAuth: enabled=true configured=true
-- OAuth有効化後、既存no-auth接続は認証なしでは利用できない
+- Render OAuth enabled/configured=true
+- ChatGPT側OAuth初回接続完了
+- 通常チャットからOAuth認証済みMCPツール呼び出し成功
 
 ## Next Work
-1. ChatGPTで https://development-control-center-mcp.onrender.com/mcp をOAuth認証として再接続する。
-2. 初回だけ所有者用ペアリング資格情報を入力する。
-3. ping / server_info / list_projects / get_project を確認する。
-4. server_infoで backend configured=true、OAuth enabled/configured=true、writesEnabled=falseを確認する。
-5. list_projects=15、DEV-001詳細、syncVersion、未知ID404を再確認する。
-6. 接続成功後、所有者用ペアリング資格情報をローテーションする。
-7. refresh tokenで通常利用時の再認証が不要なことを確認する。
+1. Site DB上のDEV-001表示をWork/Site編集でGit正式状態へ合わせる。
+2. refresh tokenによる継続利用を確認する。
+3. 残案件のGit移行を継続する。
 
 ## Blocker
-サーバー側ブロッカーは解消。ChatGPT側の一度きりのOAuth再リンク待ち。
+なし。
 
 ## Cautions
 - Siteはcustom非公開のまま維持する。
@@ -47,7 +44,6 @@ Site非公開のままBridge経由で15案件を読み取る経路は完成済�
 - Siteの既存UI、履歴、CR、Decision Log、Handoff、既存WebMCPを維持する。
 - SecretをGit、Site DB、ブラウザJS、ログ、APIレスポンスへ記録しない。
 - MCP_ALLOW_WRITES=falseを維持する。
-- OAuth signing secretは絶対にユーザー表示しない。
 
 ## Completion Criteria
-ChatGPT側でOAuth接続が完了し、通常チャットから15案件の一覧と詳細を再取得できること。以後の接続はaccess token/refresh tokenで自動認証され、通常利用で所有者用ペアリング資格情報の再入力を要求しないこと。
+通常チャットからOAuth認証済みMCP経由で15案件の一覧と詳細を取得でき、通常利用で毎回のペアリング認証を要求しないこと。
