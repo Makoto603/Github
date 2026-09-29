@@ -9,12 +9,12 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-29T11:57:00+09:00",
-      "currentWork": "Render上の外部MCP Bridgeを起動し、ChatGPT通常チャットからping成功を確認。Bridge→Site DB接続用Backend設定を進める。",
-      "nextWork": "Render側SecretにDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENを設定し、Bridge経由でlist_projects/get_projectを実行して15案件とsyncVersionを確認する。既存案件のGit移行も継続する。",
+      "updatedAt": "2026-09-29T13:09:00+09:00",
+      "currentWork": "RenderへDCC_BACKEND_BASE_URLを設定し、MCP Bridge v0.1.1へ更新。Backend設定判定と401診断を修正済み。",
+      "nextWork": "DCC_BACKEND_TOKENをRenderへ安全に設定し、Site側アクセスレイヤーのサーバー間認証を解決後、list_projects/get_projectで15案件とsyncVersionを再確認する。",
       "pendingReason": "",
       "holdReason": "",
-      "blocker": "Render上のMCP BridgeでDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENが未設定のため、list_projects/get_projectはBACKEND_NOT_CONFIGURED。",
+      "blocker": "DCC_BACKEND_TOKEN未設定。加えてRenderからSite公開URLへのアクセスはChatGPT Sitesアクセスレイヤーで401 HTMLとなるため、Site側アクセス方式の調整が必要。",
       "gitRepository": "https://github.com/Makoto603/Github",
       "nasPath": "",
       "latestRelease": "",
@@ -44,6 +44,11 @@
           "type": "MCP_BRIDGE",
           "message": "Render上のdevelopment-control-center-mcp v0.1.0へChatGPT通常チャットからping成功。Backend未設定のためSite DB接続は次段階。",
           "at": "2026-09-29T11:57:00+09:00"
+        },
+        {
+          "type": "MCP_BRIDGE_FIX",
+          "message": "DCC_BACKEND_BASE_URLをRenderへ設定。Bridge v0.1.1でconfigured判定と401診断を修正し、build・起動を確認。",
+          "at": "2026-09-29T13:09:00+09:00"
         }
       ]
     },
