@@ -9,12 +9,12 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-29T15:53:00+09:00",
-      "currentWork": "Site非公開を維持したBridge経由の15案件読み取り接続を完成。MCP Bridge v0.2.0へOAuth 2.1 + PKCE(S256)とrefresh tokenを実装し、RenderでOAuth enabled/configured=trueを確認済み。",
-      "nextWork": "ChatGPT側の既存no-auth接続をOAuthとして一度だけ再リンクし、15案件・DEV-001・syncVersion・404を再確認後、初回ペアリング資格情報をローテーションする。",
+      "updatedAt": "2026-09-29T16:14:00+09:00",
+      "currentWork": "Site非公開を維持したChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→Site API→Site DBの読み取り経路を完成。通常チャットから15案件・DEV-001・syncVersion・404を再確認済み。",
+      "nextWork": "Renderの初回ペアリング用パスワードを手動ローテーションし、Site DB上のDEV-001運用表示をWork/Site編集で最新化する。その後、残案件のGit移行を継続する。",
       "pendingReason": "",
       "holdReason": "",
-      "blocker": "サーバー側ブロッカーなし。既存ChatGPTプラグインがno-auth接続のため、OAuth再リンク完了までMCPツールを利用できない。",
+      "blocker": "",
       "gitRepository": "https://github.com/Makoto603/Github",
       "nasPath": "",
       "latestRelease": "",
@@ -54,6 +54,11 @@
           "type": "MCP_OAUTH",
           "message": "MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)・offline_access refresh tokenを実装。Renderでenabled/configured=trueを確認し、既存no-auth接続の拒否を確認。",
           "at": "2026-09-29T15:53:00+09:00"
+        },
+        {
+          "type": "MCP_OAUTH_CONNECTED",
+          "message": "Bridge v0.2.1でOAuth callbackを修正し、ChatGPT側OAuth接続完了。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを再確認。",
+          "at": "2026-09-29T16:14:00+09:00"
         }
       ]
     },
