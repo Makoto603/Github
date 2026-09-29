@@ -9,12 +9,12 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-29T13:09:00+09:00",
-      "currentWork": "RenderへDCC_BACKEND_BASE_URLを設定し、MCP Bridge v0.1.1へ更新。Backend設定判定と401診断を修正済み。",
-      "nextWork": "DCC_BACKEND_TOKENをRenderへ安全に設定し、Site側アクセスレイヤーのサーバー間認証を解決後、list_projects/get_projectで15案件とsyncVersionを再確認する。",
+      "updatedAt": "2026-09-29T15:53:00+09:00",
+      "currentWork": "Site非公開を維持したBridge経由の15案件読み取り接続を完成。MCP Bridge v0.2.0へOAuth 2.1 + PKCE(S256)とrefresh tokenを実装し、RenderでOAuth enabled/configured=trueを確認済み。",
+      "nextWork": "ChatGPT側の既存no-auth接続をOAuthとして一度だけ再リンクし、15案件・DEV-001・syncVersion・404を再確認後、初回ペアリング資格情報をローテーションする。",
       "pendingReason": "",
       "holdReason": "",
-      "blocker": "DCC_BACKEND_TOKEN未設定。加えてRenderからSite公開URLへのアクセスはChatGPT Sitesアクセスレイヤーで401 HTMLとなるため、Site側アクセス方式の調整が必要。",
+      "blocker": "サーバー側ブロッカーなし。既存ChatGPTプラグインがno-auth接続のため、OAuth再リンク完了までMCPツールを利用できない。",
       "gitRepository": "https://github.com/Makoto603/Github",
       "nasPath": "",
       "latestRelease": "",
@@ -49,6 +49,11 @@
           "type": "MCP_BRIDGE_FIX",
           "message": "DCC_BACKEND_BASE_URLをRenderへ設定。Bridge v0.1.1でconfigured判定と401診断を修正し、build・起動を確認。",
           "at": "2026-09-29T13:09:00+09:00"
+        },
+        {
+          "type": "MCP_OAUTH",
+          "message": "MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)・offline_access refresh tokenを実装。Renderでenabled/configured=trueを確認し、既存no-auth接続の拒否を確認。",
+          "at": "2026-09-29T15:53:00+09:00"
         }
       ]
     },
