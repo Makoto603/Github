@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.4 — 2026-09-29
+
+- Siteをcustom非公開のまま維持し、Bridge→Site DB読み取り経路を完成
+- RenderへSite API読取TokenとSIWCバイパスTokenを安全に設定
+- MCP Bridge v0.1.2でOAI-Sites-AuthorizationとAuthorizationの二段階認証を実装
+- ChatGPT通常チャットからlist_projects=15件を実取得
+- DEV-001詳細取得成功、syncVersion=5を確認
+- 未知IDで404 project_not_foundを確認
+- DEV-010/BIZ案件を含む15案件が維持されていることを確認
+- MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)を追加
+- protected resource metadata、authorization server metadata、Dynamic Client Registrationを追加
+- dcc.read / offline_access scopeを追加
+- access token 1時間、refresh token 90日で自動更新できる構成を追加
+- OAuth SecretはRender環境変数のみで保持
+- Render build成功
+- Renderで MCP OAuth: enabled=true configured=true を確認
+- OAuth有効化により既存no-auth接続が拒否されることを確認
+- 次段階はChatGPT側で一度だけOAuth再リンクし、通常利用の自動認証を検証
+
 ## 0.1.3 — 2026-09-29
 
 - Renderへ `DCC_BACKEND_BASE_URL` を設定し、Site URLまでの到達経路を確立
@@ -8,18 +27,14 @@
 - `backend.configured` はBase URLとTokenの両方が設定済みの場合のみtrueへ変更
 - Siteアクセスレイヤーの401 HTMLをそのままMCPエラー本文へ出さない診断処理を追加
 - TypeScript build成功、Render上でv0.1.1起動を確認
-- 現在の `server_info`: configured=false / baseUrlConfigured=true / tokenConfigured=false
-- RenderからSite公開URLへの実アクセスでChatGPT Sitesアクセスレイヤーの401 HTMLを確認し、次のブロッカーとして確定
+- RenderからSite公開URLへの実アクセスでChatGPT Sitesアクセスレイヤーの401 HTMLを確認
 
 ## 0.1.2 — 2026-09-29
 
 - 外部MCP Bridge用Repository `Makoto603/development-control-center-mcp` をRenderへデプロイ
 - ChatGPT通常チャットから開発管理センタープラグイン経由でMCP Bridgeの `ping` 成功
-- Bridge service=`development-control-center-mcp`、version=`0.1.0`、phase=`phase-1-connectivity` を確認
 - MCP Bridgeの書き込みは無効（writesEnabled=false / MCP_ALLOW_WRITES=false）
-- `server_info` でBackend未設定（DCC_BACKEND_BASE_URL / DCC_BACKEND_TOKEN）を確認
 - Backend未設定時の `list_projects` は `BACKEND_NOT_CONFIGURED` を返し、偽データを返さないことを確認
-- 次段階を「RenderのBackend Secret設定 → Bridge経由で15案件とsyncVersion確認」に更新
 
 ## 0.1.1 — 2026-09-29
 
