@@ -10,8 +10,8 @@ storage:
   code_and_docs: git
   large_artifacts: nas
   operational_state: site_db
-version: 0.1.2
-updated_at: 2026-09-29T11:57:00+09:00
-current_work: 外部MCP BridgeをRenderへ配置し、ChatGPT通常チャットからping成功を確認。BridgeからSite DBへ接続するためのBackend設定を進める
-next_action: Render側SecretにDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENを設定し、Bridge経由でlist_projects/get_projectを実行して15案件とsyncVersionを確認する。既存案件のGit移行も継続する
-blocker: Render上のMCP BridgeでDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENが未設定のため、list_projects/get_projectはBACKEND_NOT_CONFIGURED
+version: 0.1.3
+updated_at: 2026-09-29T13:09:00+09:00
+current_work: RenderにDCC_BACKEND_BASE_URLを設定し、MCP Bridge v0.1.1へ更新。Token未設定時のconfigured誤判定と401 HTML露出を修正済み
+next_action: DCC_BACKEND_TOKENをRenderへ安全に設定し、Site側アクセスレイヤーのサーバー間認証を解決したうえでlist_projects/get_projectを再検証する
+blocker: DCC_BACKEND_TOKEN未設定。加えてSite公開URLはサーバー間アクセス時にChatGPT Sitesのアクセスレイヤーで401 HTMLを返すため、Site側アクセス方式の調整が必要
