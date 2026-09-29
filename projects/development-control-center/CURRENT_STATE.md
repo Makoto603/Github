@@ -24,36 +24,39 @@ ACTIVE
 - scope dcc.read と offline_access を実装
 - access token 1時間、refresh token 90日。refresh tokenによる自動更新に対応
 - OAuth用SecretはRender環境変数のみで保持
-- Render build成功
-- Render起動ログで MCP OAuth: enabled=true configured=true を確認
-- OAuth有効化後、既存no-auth MCP接続が利用できなくなることを確認
+- OAuth認証画面のChatGPT callback遷移を修正し、Bridge v0.2.1へ更新
+- ChatGPT側OAuth初回接続を完了
+- OAuth接続後の通常チャットから ping / server_info / list_projects / get_project を再実行
+- server_infoで mcpAuth=oauth2.1-pkce、OAuth enabled/configured=true、backend configured=true、writesEnabled=falseを確認
+- list_projectsで15案件を再確認
+- DEV-001詳細とsyncVersion=5を再確認
+- 未知ID DEV-999999 で404 project_not_foundを再確認
 
 ## Git
 Repository: https://github.com/Makoto603/Github
 Project Path: projects/development-control-center
 Bridge Repository: https://github.com/Makoto603/development-control-center-mcp
-Bridge Version: 0.2.0
+Bridge Version: 0.2.1
 Bridge OAuth implementation commit: ea6cafe406fb109ad169601f57d225843fd5bb12
 Bridge OAuth env-prefix fix commit: cc3b7ebc6c7dbb2736f1c7640bc551c20c48e9b3
+Bridge callback fix commit: dc9bde4cd89a8e7569084437db2b78c44f9d9b06
 Site URL: https://development-control-center-makoto.neconini.chatgpt.site/
 Bridge URL: https://development-control-center-mcp.onrender.com/mcp
 
 ## 現在の作業
-MCP入口をOAuth 2.1で保護する実装とRender有効化まで完了。既存ChatGPT側接続はno-authで作成されているため、OAuth接続として一度だけ再リンクする段階。
+OAuth 2.1付きMCP接続は完成し、通常チャットから非公開Site DBの15案件を読み取れる状態。接続経路にサーバー側ブロッカーなし。
 
 ## 次の作業
-1. ChatGPT側でBridge endpointをOAuth認証として再接続する。
-2. 初回認証画面で所有者用ペアリング資格情報を一度だけ入力する。
-3. ping / server_info / list_projects / get_project を再検証する。
-4. 15案件、DEV-001、syncVersion、404、writesEnabled=falseを確認する。
-5. OAuth接続成立後、初回ペアリング資格情報をローテーションする。
-6. refresh tokenによる通常利用で再入力が不要であることを確認する。
+1. Renderの初回ペアリング用パスワードを手動でローテーションする。
+2. Site DB上のDEV-001 currentWork / nextWork / blocker / activityをWorkまたはSite編集で最新化する。
+3. refresh tokenによる通常利用で再入力が不要であることを継続確認する。
+4. 残案件のGit移行を継続する。
 
 ## Blocker
-- サーバー側ブロッカーなし。
-- 現在はChatGPT側の既存no-auth接続をOAuth接続として再リンクするユーザー操作待ち。
-- Site DBのDEV-001運用表示は、通常チャットの読み取り専用MCPでは直接更新できない。
+- 接続上のBlockerなし。
+- Site DBのDEV-001運用表示は、現在の読み取り専用MCPでは直接更新できない。
 
 ## 最新の変更
+2026-09-29: Bridge v0.2.1でOAuth callback遷移を修正し、ChatGPT側OAuth接続を完了。通常チャットから15案件・DEV-001・syncVersion・404を再確認。
 2026-09-29: MCP Bridge v0.2.0へOAuth 2.1 + PKCE(S256) + offline_access refresh tokenを実装し、Renderでenabled=true / configured=trueを確認。
-2026-09-29: Site非公開を維持したBridge→Site DB接続を完成し、15案件・DEV-001・syncVersion・404を実取得確認。
+2026-09-29: Site非公開を維持したBridge→Site DB接続を完成。
