@@ -10,8 +10,8 @@ storage:
   code_and_docs: git
   large_artifacts: nas
   operational_state: site_db
-version: 0.1.4
-updated_at: 2026-09-29T15:53:00+09:00
-current_work: Site非公開を維持したBridge経由の15案件読み取り接続を完成。MCP Bridge v0.2.0へOAuth 2.1 Authorization Code + PKCE(S256)とrefresh tokenを実装し、Renderでenabled/configured=trueを確認済み
-next_action: ChatGPT側の既存no-auth接続をOAuth接続として一度だけ再作成・認証し、ping・server_info・list_projects・get_projectを再確認後、初回ペアリング資格情報をローテーションする
-blocker: 既存ChatGPTプラグイン接続がno-auth設定のため、OAuth有効化後は再リンク完了までMCPツールを利用できない
+version: 0.1.5
+updated_at: 2026-09-29T16:14:00+09:00
+current_work: Site非公開を維持したChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→Site API→Site DBの読み取り経路を完成。通常チャットから15案件・DEV-001・syncVersion・404を再確認済み
+next_action: Renderの初回ペアリング用パスワードを手動ローテーションし、Site DB上のDEV-001運用表示をWork/Site編集で最新化する。その後、残案件のGit移行を継続する
+blocker: なし。通常チャット側のOAuth接続は正常稼働中
