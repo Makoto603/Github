@@ -10,8 +10,8 @@
       "priority": "HIGH",
       "startDate": "2026-09-28",
       "updatedAt": "2026-09-29T16:14:00+09:00",
-      "currentWork": "Site非公開を維持したChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→Site API→Site DBの読み取り経路を完成。通常チャットから15案件・DEV-001・syncVersion・404を再確認済み。",
-      "nextWork": "Renderの初回ペアリング用パスワードを手動ローテーションし、Site DB上のDEV-001運用表示をWork/Site編集で最新化する。その後、残案件のGit移行を継続する。",
+      "currentWork": "ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの読み取り経路が完成し、通常運用開始。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを確認済み。",
+      "nextWork": "Site DB上のDEV-001運用表示をWork/Site編集で最新化し、残案件のGit移行を継続する。",
       "pendingReason": "",
       "holdReason": "",
       "blocker": "",
@@ -58,6 +58,11 @@
         {
           "type": "MCP_OAUTH_CONNECTED",
           "message": "Bridge v0.2.1でOAuth callbackを修正し、ChatGPT側OAuth接続完了。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを再確認。",
+          "at": "2026-09-29T16:14:00+09:00"
+        },
+        {
+          "type": "MCP_OPERATIONAL",
+          "message": "OAuth 2.1付きMCP接続を通常運用開始状態へ更新。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを確認。",
           "at": "2026-09-29T16:14:00+09:00"
         }
       ]
