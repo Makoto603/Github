@@ -9,7 +9,7 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-29T11:40:00+09:00",
+      "updatedAt": "2026-09-29T02:43:38.162Z",
       "currentWork": "外部MCP Bridge向け読み取り専用APIを追加し、Site DBの15案件・認証・詳細取得を検証済み。Bridge側の接続設定を進める。",
       "nextWork": "BridgeにSite所有者認証ゲート通過情報と読取Tokenを安全に設定し、Bridge経由の一覧・詳細取得を確認する。既存案件のGit移行を継続する。",
       "pendingReason": "",
