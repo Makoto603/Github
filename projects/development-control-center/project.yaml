@@ -10,8 +10,8 @@ storage:
   code_and_docs: git
   large_artifacts: nas
   operational_state: site_db
-version: 0.1.1
-updated_at: 2026-09-29T11:40:00+09:00
-current_work: 外部MCP Bridge向け読み取り専用APIを追加し、Site DBの15案件・認証・詳細取得を検証済み。Bridge側の接続設定を進める
-next_action: BridgeにSite側の所有者認証ゲート通過情報と読取Tokenを安全に設定し、Bridge経由の一覧・詳細取得を確認する。既存案件のGit移行を継続する
-blocker: Bridge側のSite所有者認証ゲート通過方式と読取Tokenの設定が未完了
+version: 0.1.2
+updated_at: 2026-09-29T11:57:00+09:00
+current_work: 外部MCP BridgeをRenderへ配置し、ChatGPT通常チャットからping成功を確認。BridgeからSite DBへ接続するためのBackend設定を進める
+next_action: Render側SecretにDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENを設定し、Bridge経由でlist_projects/get_projectを実行して15案件とsyncVersionを確認する。既存案件のGit移行も継続する
+blocker: Render上のMCP BridgeでDCC_BACKEND_BASE_URLとDCC_BACKEND_TOKENが未設定のため、list_projects/get_projectはBACKEND_NOT_CONFIGURED
