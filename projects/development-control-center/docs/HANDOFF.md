@@ -7,7 +7,12 @@
 ACTIVE
 
 ## Current Work
-ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの読み取り経路は完成し、通常運用中。
+OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
+
+## Current Observation (2026-09-30)
+- Site DB 15案件、DEV-001 syncVersion=5。Site表示がGit正式記録より古い。
+- Site Git再照合はHTTP 403でSTALE。前回Git同期状態はSYNCED。
+- 現セッションのMCPツールはInternal error。RenderのBridge配備はliveで、原因未確定。
 
 ## Verified
 - Site DB: 15案件維持
@@ -30,12 +35,13 @@ ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの�
 - 通常チャットからOAuth認証済みMCPツール呼び出し成功
 
 ## Next Work
-1. Site DB上のDEV-001表示をWork/Site編集でGit正式状態へ合わせる。
-2. refresh tokenによる継続利用を確認する。
-3. 残案件のGit移行を継続する。
+1. MCPツールのInternal errorを調査し、ping/list_projects/get_projectを再確認する。
+2. Site Git再照合のHTTP 403を調査・解消し、Git/Site差分を確認する。データを一括上書きしない。
+3. refresh tokenで継続利用できることを確認する。
+4. 残案件のGit移行方針を整理する。Bridge書き込みは明示的な設計判断まで無効のまま維持する。
 
 ## Blocker
-なし。
+SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
 
 ## Cautions
 - Siteはcustom非公開のまま維持する。
