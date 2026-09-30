@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.9 — 2026-09-30
+
+- Site v12で1案件限定の更新、CR/Decision、Git同期、開発チャットURLとWeb Handoffリンクを追加。
+- Bridge v0.3.0へdcc.writeを追加し、読み取り権限と分離。書き込みSecretはSiteとRenderのサーバー側に保存。
+- 15案件・他案件のID/statusを維持。認証・版競合・不正URL・bulk拒否を確認。実案件のBridge書き込みとGit同期は再接続後の検証事項。
+
+
 ## 0.1.8 — 2026-09-30
 
 - Site Secret `GITHUB_TOKEN` を利用する認証付きGit再照合を公開し、HTTP 200 / CONNECTED / Registry 10件を確認
