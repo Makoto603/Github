@@ -59,3 +59,9 @@ OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認�
 
 ## Completion Criteria
 通常チャットからOAuth認証済みMCP経由で15案件の一覧と詳細を取得でき、通常利用で毎回のペアリング認証を要求しないこと。
+
+## 2026-09-30 Scoped write handoff
+- Bridge v0.3.0 / Site v12を公開。Site DB 15案件、DEV-001のみの管理記録更新を予定。
+- dcc.writeを再接続した後、既存案件1件の状態・工程・優先度、CR・Decisionを版付きで検証する。PASS/COMPLETEの根拠必須。既存の一括Git同期をBridgeから呼ばない。
+- 案件別Git同期は確認済みcommit SHAとsyncVersionを指定する。開発チャットURLは明示された開発会話だけに登録し、Skill一括更新・日次点検では変更しない。
+- Handoff Webの閲覧はスナップショットを追加しない。開発チャットURLが未登録ならリンクは表示しない。
