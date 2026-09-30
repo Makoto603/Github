@@ -9,12 +9,12 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-29T16:14:00+09:00",
-      "currentWork": "ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの読み取り経路が完成し、通常運用開始。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを確認済み。",
-      "nextWork": "Site DB上のDEV-001運用表示をWork/Site編集で最新化し、残案件のGit移行を継続する。",
+      "updatedAt": "2026-09-30T11:10:00+09:00",
+      "currentWork": "OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。",
+      "nextWork": "MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査し、Git再照合HTTP 403を解消する。その後refresh tokenで継続利用を確認し、残案件のGit移行方針を整理する。",
       "pendingReason": "",
       "holdReason": "",
-      "blocker": "",
+      "blocker": "SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。",
       "gitRepository": "https://github.com/Makoto603/Github",
       "nasPath": "",
       "latestRelease": "",
@@ -64,6 +64,11 @@
           "type": "MCP_OPERATIONAL",
           "message": "OAuth 2.1付きMCP接続を通常運用開始状態へ更新。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを確認。",
           "at": "2026-09-29T16:14:00+09:00"
+        },
+        {
+          "type": "OPERATIONAL_REVIEW",
+          "message": "2026-09-30 Site DB 15案件、Bridge v0.2.1配備liveを確認。現セッションのMCPツールInternal errorとSite Git再照合HTTP 403を観測し、原因切り分けを次作業に設定。",
+          "at": "2026-09-30T11:10:00+09:00"
         }
       ]
     },
