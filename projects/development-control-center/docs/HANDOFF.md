@@ -17,7 +17,7 @@ OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認�
 ## Recovery Check (2026-09-30 13:30)
 - Render OAuth configured=true、MCP ping / list_projects / get_projectが成功
 - Site Secret `GITHUB_TOKEN` を反映したSite v11で認証付きGit再照合HTTP 200、CONNECTED、Registry 10件
-- Site DB 15案件、DEV-001 syncVersion=7（本記録更新前）
+- Site DB 15案件、DEV-001 syncVersion=9（管理記録・履歴更新後）
 - `lastGitSyncAt` 不変。Gitから案件を同期していない
 - 403とMCP Internal errorは解消済み。refresh tokenの更新動作自体は未検証
 
@@ -25,7 +25,7 @@ OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認�
 - Site DB: 15案件維持
 - list_projects: 15件取得成功
 - get_project(DEV-001): 成功
-- DEV-001 syncVersion: 5
+- DEV-001 syncVersion: 9（2026-09-30の更新後）
 - unknown project: 404 project_not_found
 - DEV-010およびBIZ案件を含むGit未接続案件を維持
 - MCP_ALLOW_WRITES=false / writesEnabled=false
