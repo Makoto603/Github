@@ -10,8 +10,8 @@ storage:
   code_and_docs: git
   large_artifacts: nas
   operational_state: site_db
-version: 0.1.7
-updated_at: 2026-09-30T11:10:00+09:00
-current_work: OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
-next_action: MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査し、Git再照合HTTP 403を解消する。その後refresh tokenで継続利用を確認し、残案件のGit移行方針を整理する。
-blocker: SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
+version: 0.1.8
+updated_at: 2026-09-30T13:35:00+09:00
+current_work: OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認。Git接続はCONNECTED、Site DBは15案件、Git Registryは10件。
+next_action: refresh tokenによる再ログインなしの継続利用を確認し、GitとSiteの差分を定期点検する。次にチャットからの限定更新を版管理・監査履歴付きで設計する。
+blocker: ""
