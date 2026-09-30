@@ -61,7 +61,7 @@ OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認�
 - UIの案件種類バッジは実装済み。Bridge経由の書き込みはwritesEnabled=falseのまま。
 
 ## 2026-09-30 13:30時点の確認
-- Render OAuth owner credential configured=true、MCP ping/list_projects/get_projectが成功し、15案件とDEV-001 syncVersion=7を確認。
+- Render OAuth owner credential configured=true、MCP ping/list_projects/get_projectが成功。DEV-001の管理記録更新後はsyncVersion=9、Site DBは15案件。
 - Site Secret `GITHUB_TOKEN` を設定し、Site v11を再デプロイ。認証付き `/api/git/status?refresh=1` がHTTP 200、CONNECTED、Git Registry 10件、`cached=false` を返した。403の再現はない。
 - Site DBの案件ID・statusは実装前後15件で維持。Git同期は行っておらず、`lastGitSyncAt` は2026-09-29T00:39:13.237Zのまま。
 - Bridge `writesEnabled=false`。refresh tokenを明示的に更新した事実までは未確認。
