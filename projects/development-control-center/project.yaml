@@ -10,8 +10,8 @@ storage:
   code_and_docs: git
   large_artifacts: nas
   operational_state: site_db
-version: 0.1.6
-updated_at: 2026-09-29T16:14:00+09:00
-current_work: ChatGPT→OAuth 2.1→Render MCP Bridge v0.2.1→非公開Site API→Site DBの読み取り経路が完成し、通常運用開始。15案件・DEV-001・syncVersion=5・未知ID404・writesEnabled=falseを確認済み
-next_action: Site DB上のDEV-001運用表示をWork/Site編集で最新化し、残案件のGit移行を継続する
-blocker: なし
+version: 0.1.7
+updated_at: 2026-09-30T11:10:00+09:00
+current_work: OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
+next_action: MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査し、Git再照合HTTP 403を解消する。その後refresh tokenで継続利用を確認し、残案件のGit移行方針を整理する。
+blocker: SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
