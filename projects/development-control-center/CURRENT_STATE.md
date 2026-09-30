@@ -44,23 +44,31 @@ Site URL: https://development-control-center-makoto.neconini.chatgpt.site/
 Bridge URL: https://development-control-center-mcp.onrender.com/mcp
 
 ## 現在の作業
-OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
+OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認。Git接続はCONNECTED、Site DBは15案件、Git Registryは10件。
 
 ## 次の作業
-1. MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査する。
-2. Git再照合のHTTP 403を解消し、DEV-001のGit/Site差分を確認する。
-3. refresh tokenによる継続利用を確認する。残案件のGit移行方針を整理する。
+1. refresh tokenによる再ログインなしの継続利用を確認する。
+2. Git正式文書・RegistryとSite DBの差分を定期点検し、更新候補を提示する。自動で案件データを上書きしない。
+3. チャットからの限定更新を版管理・履歴・認可範囲を定めて設計する。Git未接続案件の移行は別途判断する。
 
 ## Blocker
-SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
+なし。継続利用テストと更新機能の設計は次作業。
 
-## 2026-09-30の観測
+## 2026-09-30 11:10時点の観測（解消前）
 - Site DBは15案件、DEV-001はsyncVersion=5のまま。Site表示は接続前の記述でGit正式記録と相違。
 - Git接続表示はSTALE、直近の再照合エラーはGitHub取得失敗 HTTP 403。最後のGit同期状態はSYNCEDのまま。
 - このセッションのMCP ping/server_info/list_projects/get_projectはInternal error。Render配備はlive、エラーログなし。原因は未確定。OAuth接続完了の過去実績とは区別する。
 - UIの案件種類バッジは実装済み。Bridge経由の書き込みはwritesEnabled=falseのまま。
 
+## 2026-09-30 13:30時点の確認
+- Render OAuth owner credential configured=true、MCP ping/list_projects/get_projectが成功し、15案件とDEV-001 syncVersion=7を確認。
+- Site Secret `GITHUB_TOKEN` を設定し、Site v11を再デプロイ。認証付き `/api/git/status?refresh=1` がHTTP 200、CONNECTED、Git Registry 10件、`cached=false` を返した。403の再現はない。
+- Site DBの案件ID・statusは実装前後15件で維持。Git同期は行っておらず、`lastGitSyncAt` は2026-09-29T00:39:13.237Zのまま。
+- Bridge `writesEnabled=false`。refresh tokenを明示的に更新した事実までは未確認。
+
 ## 最新の変更
+2026-09-30: Git接続・MCP取得の復旧を確認。Site側の認証付きGit取得を導入し、403とInternal errorのBlockerを解消。
+
 2026-09-29: DEV-001をOAuth MCP接続完成・通常運用開始状態へ更新。15案件・DEV-001・syncVersion=5・404・writesEnabled=falseを確認済み。
 2026-09-29: Bridge v0.2.1でOAuth callback遷移を修正し、ChatGPT側OAuth接続を完了。
 2026-09-29: Site非公開を維持したBridge→Site DB接続を完成。
