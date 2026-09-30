@@ -9,12 +9,12 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-30T02:12:33.070Z",
-      "currentWork": "OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。",
-      "nextWork": "MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査し、Git再照合HTTP 403を解消する。その後refresh tokenで継続利用を確認し、残案件のGit移行方針を整理する。",
+      "updatedAt": "2026-09-30T04:37:30.750Z",
+      "currentWork": "OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認。Git接続はCONNECTED、Site DBは15案件、Git Registryは10件。",
+      "nextWork": "refresh tokenによる再ログインなしの継続利用を確認し、GitとSiteの差分を定期点検する。次にチャットからの限定更新を版管理・監査履歴付きで設計する。",
       "pendingReason": "",
       "holdReason": "",
-      "blocker": "SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。",
+      "blocker": "",
       "gitRepository": "https://github.com/Makoto603/Github",
       "nasPath": "",
       "latestRelease": "",
@@ -69,6 +69,11 @@
           "type": "OPERATIONAL_REVIEW",
           "message": "2026-09-30 Site DB 15案件、Bridge v0.2.1配備liveを確認。現セッションのMCPツールInternal errorとSite Git再照合HTTP 403を観測し、原因切り分けを次作業に設定。",
           "at": "2026-09-30T11:10:00+09:00"
+        },
+        {
+          "type": "OPERATIONAL_REVIEW",
+          "message": "2026-09-30 OAuth付きMCP取得とSite認証付きGit再照合の復旧を確認。Git HTTP 200/CONNECTED、Registry 10件、Site DB 15案件を維持。Git案件同期なし。",
+          "at": "2026-09-30T04:37:30.750Z"
         }
       ]
     },
