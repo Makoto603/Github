@@ -7,12 +7,19 @@
 ACTIVE
 
 ## Current Work
-OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
+OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認。Git接続はCONNECTED、Site DBは15案件、Git Registryは10件。
 
-## Current Observation (2026-09-30)
+## Historical Observation (2026-09-30 11:10, resolved)
 - Site DB 15案件、DEV-001 syncVersion=5。Site表示がGit正式記録より古い。
 - Site Git再照合はHTTP 403でSTALE。前回Git同期状態はSYNCED。
 - 現セッションのMCPツールはInternal error。RenderのBridge配備はliveで、原因未確定。
+
+## Recovery Check (2026-09-30 13:30)
+- Render OAuth configured=true、MCP ping / list_projects / get_projectが成功
+- Site Secret `GITHUB_TOKEN` を反映したSite v11で認証付きGit再照合HTTP 200、CONNECTED、Registry 10件
+- Site DB 15案件、DEV-001 syncVersion=7（本記録更新前）
+- `lastGitSyncAt` 不変。Gitから案件を同期していない
+- 403とMCP Internal errorは解消済み。refresh tokenの更新動作自体は未検証
 
 ## Verified
 - Site DB: 15案件維持
@@ -35,13 +42,12 @@ OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在�
 - 通常チャットからOAuth認証済みMCPツール呼び出し成功
 
 ## Next Work
-1. MCPツールのInternal errorを調査し、ping/list_projects/get_projectを再確認する。
-2. Site Git再照合のHTTP 403を調査・解消し、Git/Site差分を確認する。データを一括上書きしない。
-3. refresh tokenで継続利用できることを確認する。
-4. 残案件のGit移行方針を整理する。Bridge書き込みは明示的な設計判断まで無効のまま維持する。
+1. refresh tokenで再ログインなしの継続利用を確認する。
+2. Git正式文書・RegistryとSite DBの差分を定期点検する。差分を無言で上書きしない。
+3. チャットからの限定更新を版管理・監査履歴付きで設計する。Git未接続案件の移行は別途判断する。
 
 ## Blocker
-SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
+なし。
 
 ## Cautions
 - Siteはcustom非公開のまま維持する。
