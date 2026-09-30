@@ -44,15 +44,21 @@ Site URL: https://development-control-center-makoto.neconini.chatgpt.site/
 Bridge URL: https://development-control-center-mcp.onrender.com/mcp
 
 ## 現在の作業
-OAuth 2.1付きMCP接続は完成。通常チャットから非公開Site DBの15案件を読み取れる通常運用状態。
+OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。
 
 ## 次の作業
-1. Site DB上のDEV-001 currentWork / nextWork / blocker / activityをWorkまたはSite編集で最新化する。
-2. refresh tokenによる通常利用で再入力が不要であることを継続確認する。
-3. 残案件のGit移行を継続する。
+1. MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査する。
+2. Git再照合のHTTP 403を解消し、DEV-001のGit/Site差分を確認する。
+3. refresh tokenによる継続利用を確認する。残案件のGit移行方針を整理する。
 
 ## Blocker
-なし。接続上のBlockerは解消済み。
+SiteのGit再照合はHTTP 403でSTALE。2026-09-30の本セッションでMCPツールがInternal error（原因未確定）。
+
+## 2026-09-30の観測
+- Site DBは15案件、DEV-001はsyncVersion=5のまま。Site表示は接続前の記述でGit正式記録と相違。
+- Git接続表示はSTALE、直近の再照合エラーはGitHub取得失敗 HTTP 403。最後のGit同期状態はSYNCEDのまま。
+- このセッションのMCP ping/server_info/list_projects/get_projectはInternal error。Render配備はlive、エラーログなし。原因は未確定。OAuth接続完了の過去実績とは区別する。
+- UIの案件種類バッジは実装済み。Bridge経由の書き込みはwritesEnabled=falseのまま。
 
 ## 最新の変更
 2026-09-29: DEV-001をOAuth MCP接続完成・通常運用開始状態へ更新。15案件・DEV-001・syncVersion=5・404・writesEnabled=falseを確認済み。
