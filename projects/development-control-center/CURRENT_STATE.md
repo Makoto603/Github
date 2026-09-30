@@ -72,3 +72,10 @@ OAuth付きBridge v0.2.1のMCP取得とSiteの認証付きGit再照合を確認�
 2026-09-29: DEV-001をOAuth MCP接続完成・通常運用開始状態へ更新。15案件・DEV-001・syncVersion=5・404・writesEnabled=falseを確認済み。
 2026-09-29: Bridge v0.2.1でOAuth callback遷移を修正し、ChatGPT側OAuth接続を完了。
 2026-09-29: Site非公開を維持したBridge→Site DB接続を完成。
+
+## 2026-09-30 Bridge v0.3.0
+- Site v12に既存案件1件の更新APIと開発チャットURLの保存・Web Handoffリンクを追加。Site DBは15件を維持。
+- Bridge v0.3.0はdcc.readとdcc.writeを分け、Site Secret DCC_MCP_WRITE_TOKENとRender Secret DCC_BACKEND_WRITE_TOKENで書き込みを保護。
+- 認証なし/不正Tokenは401、正しいTokenと古いsyncVersionは409、外部URL・bulk指定・Git commit未指定は400を確認。
+- Handoff閲覧は200で、スナップショットは増えない。Bridgeの読み取り一覧は15件。
+- 実案件への書き込みとGit同期、dcc.write再接続は未検証。定期点検は読み取りのみ。
