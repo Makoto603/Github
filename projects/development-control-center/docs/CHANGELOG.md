@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.8 — 2026-09-30
+
+- Site Secret `GITHUB_TOKEN` を利用する認証付きGit再照合を公開し、HTTP 200 / CONNECTED / Registry 10件を確認
+- OAuth Bridge v0.2.1のMCP ping・案件一覧15件・DEV-001詳細取得を再確認
+- 解消済みの403・MCP Internal errorをBlockerから外し、refresh token継続確認と差分点検を次作業に変更
+- Site DB 15案件を維持。案件のGit同期・DB初期化は実行せず、既存UIとMCP読み取り機能を維持
+
 ## 0.1.7 — 2026-09-30
 
 - Site DEV-001の古い接続前表示をGit正式記録に合わせて更新する作業を開始
