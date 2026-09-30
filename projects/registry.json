@@ -9,7 +9,7 @@
       "status": "ACTIVE",
       "priority": "HIGH",
       "startDate": "2026-09-28",
-      "updatedAt": "2026-09-30T11:10:00+09:00",
+      "updatedAt": "2026-09-30T02:12:33.070Z",
       "currentWork": "OAuth 2.1付きBridge v0.2.1からSite DBの15案件取得まで完成。現在はGit再照合HTTP 403と、このセッションでのMCPツールInternal errorを切り分け中。",
       "nextWork": "MCPツールのInternal errorを認証更新・接続設定・Bridge応答に分けて調査し、Git再照合HTTP 403を解消する。その後refresh tokenで継続利用を確認し、残案件のGit移行方針を整理する。",
       "pendingReason": "",
