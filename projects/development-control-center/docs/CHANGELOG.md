@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.7 — 2026-09-30
+
+- Site DEV-001の古い接続前表示をGit正式記録に合わせて更新する作業を開始
+- Git再照合HTTP 403・STALEと現セッションのMCPツールInternal errorを観測。原因は未確定
+- Render Bridge v0.2.1配備live、Site DB 15案件を確認
+- 次の開発課題をMCP接続診断、Git再照合復旧、refresh token継続確認、Git未接続案件の方針整理とした
+
 ## 0.1.5 — 2026-09-29
 
 - OAuth認証画面からChatGPT callbackへ戻れない問題を修正
