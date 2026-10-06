@@ -2,14 +2,14 @@ project_id: DEV-002
 project_name: X Topic Editor / X BOT
 current_phase: 実装
 project_status: ACTIVE
-priority: MEDIUM
+priority: HIGH
 source_of_truth: git
 repository: https://github.com/Makoto603/Github
 repository_path: projects/x-topic-editor
 site_url: https://x-topic-editor.neconini.chatgpt.site
 site_project_id: appgprj_6ab5cfc1112881919cf0543a8711759d
 site_source_version: 15
-updated_at: 2026-09-28T22:25:00+09:00
-current_work: Site実体は稼働中。記事本文比較・AI評価・RSS登録・候補管理を改善中。
-next_action: RSS登録、重複排除、本文比較、予約投稿フローを仕上げる。
-blocker: ChatGPT Sitesの内部ソースをLibraryから直接取得できない。
+updated_at: 2026-10-06T13:55:00+09:00
+current_work: 5テーマで実運用中。Pi巡回→Android ChatGPT Worker→AI判定→Site同期の監視を行いながら、ダッシュボードUI再設計とWorker構造化出力エラーを修正中。
+next_action: WorkerのMETA_JSON起因の不正JSONを修正しfailed 2件を安全に再試行。その後ダッシュボードUI改修を完了し、新規3テーマの候補増加率とPOST/HOLD比率を観測する。
+blocker: ChatGPT Workerがcurrent_state内の未エスケープMETA_JSONを含む応答を解析できずeducation-governanceでfailed 2件。AI応答自体は返っており主経路は稼働中。
