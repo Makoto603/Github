@@ -1,5 +1,36 @@
 # CHANGELOG — DEV-002 X Topic Editor / X BOT
 
+## 2026-10-16
+
+### テーマ偏り・クローラー改善
+- ChatGPT Workerを`v0.1.62`へ更新し、通常キューとHeavy再処理の両方を固定テーマリングでラウンドロビン化。
+- topiccrawlerを`v0.3.5`へ更新。
+  - Bing RSS取得の一時失敗を1回自動リトライ。
+  - テーマ別に query total / ok / error count / error detail をstatusへ記録。
+  - URL解決失敗・5xx・timeout・接続系エラーを即seen化せず再試行。
+  - 東京大学テーマで「東大/東京大学」「学長/総長/選考」別名グループを追加し、誤irrelevant判定を修正。
+- 取りこぼしていた「東大学長選考『重要な問題提起』…」を修正後に正常なAI候補としてemitできることを確認。
+- xwatch-source-watchを`v0.1.4`へ更新し、cronと実チェック時刻のズレで30分監視が実質60分になる問題を90秒猶予で修正。
+
+### AI/Deep Dive
+- ChatGPT WorkerはProject固定指示方式で稼働。
+- Deep Dive専用Project `XWatch DeepDive` を作成し、deep-dive-ai-input `v0.1.3` / deep-dive-ai-worker `v0.1.6` へ更新。
+- Deep Dive Skill本文を毎回送る旧方式を廃止し、固定指示 + 動的入力方式へ移行。
+- Deep Dive実候補でPASS・DEEPDIVE_JSON取得・チャット削除まで確認。
+
+### テーマ稼働状況の表示データ拡張
+- xwatch-statusを`v0.2.6`へ更新。
+- Site同期payloadの `status.topic_activity[topic_id]` に以下を追加。
+  - `today_ai_judged`
+  - `today_new_candidates`
+  - `today_heavy_reprocessed`
+  - `current_waiting`
+  - `current_inbox`
+  - `current_processing`
+  - `current_heavy`
+- 「本日AI判定」だけでは当日新規と過去バックログ/Heavy再処理を区別できないため、Site一覧では「本日新規候補 / Heavy再処理 / 現在待ち」も併記する方針を確定。
+- Site内部ソースは引き続き取得経路待ち。Pi側のデータ生成・同期は完了。
+
 ## 2026-10-06
 
 ### 監視対象拡張
