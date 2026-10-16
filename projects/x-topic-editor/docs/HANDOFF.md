@@ -101,3 +101,50 @@ ChatGPTは回答を返しているが、返却JSONが次のような構造にな
 3. SiteダッシュボードUI改修を完了
 4. 1時間・数時間・数日単位でAI判定件数とPOST/HOLD比率を観測
 5. Git更新後、開発管理センターDEV-002へ同期
+
+
+---
+
+## 2026-10-16 — テーマ稼働状況の件数分解
+
+テーマ一覧の「本日AI判定」だけでは、当日新規候補と過去バックログ/Heavy再処理を区別できず、テーマ偏りと誤認しやすいことを確認。
+
+Pi側 `xwatch-status v0.2.6` で以下を同期payloadへ追加済み。
+
+Path:
+
+`status.topic_activity[topic_id]`
+
+Shape:
+
+```json
+{
+  "topic_id": "tokyo-u-president",
+  "today_ai_judged": 13,
+  "today_new_candidates": 9,
+  "today_heavy_reprocessed": 1,
+  "current_waiting": 1,
+  "current_inbox": 1,
+  "current_processing": 0,
+  "current_heavy": 3
+}
+```
+
+### Site一覧の推奨列
+
+`テーマ | 状態 | 最終巡回 | 本日AI判定 | 本日新規候補 | Heavy再処理 | 現在待ち | 本日投稿`
+
+- 本日AI判定: `today_ai_judged`
+- 本日新規候補: `today_new_candidates`
+- Heavy再処理: `today_heavy_reprocessed`
+- 現在待ち: `current_waiting`
+- Heavy待ちは必要なら現在待ちセルの補助表示として `current_heavy`
+- 古いpayloadで `topic_activity` が無い場合は従来表示へフォールバック
+
+### 定義
+- 本日新規候補: workerへ到達した候補のうち `found_at` が本日
+- Heavy再処理: 本日Heavyから選択され、AI判定PASSまで完了した一意候補
+- 現在待ち: `inbox + processing`
+- Heavy待ち: 現在heavyキューに残る件数
+
+Site内部ソースは現在も取得経路待ち。Pi側データ追加とSite同期は完了済み。
