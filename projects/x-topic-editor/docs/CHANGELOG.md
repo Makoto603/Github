@@ -12,6 +12,27 @@
 - 取りこぼしていた「東大学長選考『重要な問題提起』…」を修正後に正常なAI候補としてemitできることを確認。
 - xwatch-source-watchを`v0.1.4`へ更新し、cronと実チェック時刻のズレで30分監視が実質60分になる問題を90秒猶予で修正。
 
+### NPO/公的資金 一次情報監視強化
+- `public-funds-npo` はニュース検索を補助とし、一次情報監視を主力化。
+- `xwatch-source-watch v0.1.5` へ更新し、監視ページごとの `required_any_terms` / `exclude_terms` に対応。広い官公庁ページでも無関係な新規リンクを候補化しにくくした。
+- NPO一次情報の定点監視を11本から18本へ拡張。
+  - 内閣府NPO 認定・特例認定取消一覧
+  - 改善命令違反による取消し
+  - 事業報告書未提出による取消し
+  - 会計検査院 検査結果
+  - 会計検査院 注目の検査結果
+  - 会計検査院 基金等の検査結果
+  - 会計検査院 更新情報
+- 新規7監視先を含む全37監視先をbaseline取得し、`errors=0`を確認。
+- 会計検査院ページの実リンク選択テストで、採用情報は除外し、基金・補助・検査結果の具体ページを選択することを確認。
+- NPO検索は公金トラブルだけでなく、採択・交付決定・委託事業・助成事業・公募・契約も探索対象へ拡張。
+- `topiccrawler v0.3.6` で query spec の `required_any_terms` に対応し、Web検索ノイズを抑制。
+
+### Site sync payload肥大化対策
+- Source Watch拡張時に `HTTP 413 payload_too_large` を検知。
+- `xwatch-site-agent v0.4.8` へ更新し、Pi側の全履歴は保持したままSite同期対象を最新 history 60 / lifecycle 80 / Deep Dive 30件へ制限。
+- 同期payloadを約873KBから約649KBへ削減し、Site sync `ok:true`、Active Alert 0件まで復旧。
+
 ### AI/Deep Dive
 - ChatGPT WorkerはProject固定指示方式で稼働。
 - Deep Dive専用Project `XWatch DeepDive` を作成し、deep-dive-ai-input `v0.1.3` / deep-dive-ai-worker `v0.1.6` へ更新。
